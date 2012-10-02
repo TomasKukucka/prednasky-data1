@@ -1,0 +1,165 @@
+%%%% Martin Rotter, Jiří Zehnula, Radek Janoštík - FJAA (zápisky z přednášek)
+%%%%
+%%%% kompilováno přes cslatex --> dvips --> (případně) ps2pdf
+%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt, a4paper, titlepage]{article}
+
+\usepackage{czech}						% napsáno česky
+\usepackage[utf8]{inputenc}				% napsáno v UTF-8
+\usepackage[tables,figures]{upreport}	% UPOL styl
+%\usepackage{upstyles}
+\usepackage{a4wide}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{amsthm}
+\usepackage{vaucanson-g}				% makro pro kreslení grafů a automatů
+\usepackage{alltt}
+
+%\renewcommand{\familydefault}{\sfdefault}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+\title{KMI/DATA1  -- Databáze 1}
+\author{Tomáš Kukučka (KukuckaT@gmail.com)}
+\date{\today}
+
+\docinfo{Tomáš Kukučka}{KMI/DATA1  -- Databáze 1}
+
+\newtheoremstyle{note}
+{15pt}
+{15pt}
+{}
+{}
+{\bfseries}
+{:}
+{.5em}
+{}
+\theoremstyle{note}
+\newtheorem{dukaz}{Důkaz}
+\newtheorem{veta}{Věta}
+\newtheorem{definice}{Definice}
+\newtheorem{priklad}{Příklad}
+\newtheorem{poznamka}{Poznámka}
+\newtheorem{dusledek}{Důsledek}
+
+
+\abstract{
+Tento dokument je pouze přepisem zápisků a poznámek
+z přednášek předmětu KMI/DATA1. Přednášel \link{doc. Vilém Vychodil PhD}{http://vychodil.inf.upol.cz/}.
+}
+\pagestyle{empty}
+\makeindex
+
+\begin{document}
+\maketitle
+
+\section{Přehled databázových systémů}
+\textbf{Databázový systém:}
+\begin{itemize}
+	\item teorie - návrh systému pro organizaci dat
+	\begin{itemize}
+		\item formální metody
+		\item algoritmy (\uv{Aby to celé bylo rozumné}) - na vrstvě logické, na vrstvě fyzické (jak uložit na disk,...)
+	\end{itemize}
+	\item software
+	\begin{itemize}
+		\item \uv{produkt} (implementuje výše řešený model)
+	\end{itemize}
+\end{itemize}
+
+\textbf{DBMS} (česky SŘBD)- database management system (systém řízení báze dat)
+\begin{itemize}	
+	\item databáze = kolekce dat obhospodařovaná DBMS
+	\item poskytuje:
+	\begin{itemize}
+		\item perzistentní ("když vypnu a zapnu počítač, data zůstanou") uložení dat
+		\item rozhraní pro uživatele (programy)
+		\item transakční zpracování dat (\uv{pokud já chci provést sérii modifikací dat, tak chci zaručit, aby série provádějící
+			 modifikaci, aby proběhla celá}) - některé DB systémy to nedělají
+	\end{itemize}
+\end{itemize}		 
+
+
+\subsection{Historie}
+
+\textbf{Filesystem} (souborový systém)
+\begin{itemize}
+	\item aplikace si to řešily po svém (zapisování do souboru)
+	\item klady
+	\begin{itemize}
+		\item dá se poměrně snadno naprogramovat
+	\end{itemize}		 
+	\item zápory
+	\begin{itemize}
+		\item programátor se zabývá fyzickou reprezentací dat
+		\item nechtěná redundance dat
+		\item praktická "nemožnost" sdílení mezi síťovými aplikacemi
+	\end{itemize}
+\end{itemize}
+
+\textbf{COBOL} 1959
+\begin{itemize}
+	\item první rozumná verze 1968
+	\item poslední standart 2002 (poprvé uživatelsky definované funkce)
+	\item před COBOLEM FLOW-MATIC (vytvořila Grace Hopper)
+	\item považuje se za \uv{antijazyk}
+	\item Dijsktra: \uv{The use of COBOL cripples the mind; its teaching should, therefore, be regarded as a criminal offense.}
+\end{itemize}
+
+\textbf{Síťový databázový model}
+\begin{itemize}
+	\item Charles Bachtman
+	\item překonané paradigma (pozor na objekty)
+	\item CODASYL - standardizovali moc dlouho a byl překonán relačním modelem
+	\item databáze se skládají z:
+	\begin{itemize}
+		\item záznamů (record)
+		\begin{itemize}
+			\item dán typem záznamů
+			\item typ deklaruje hodnoty (v záznamech mají hodnoty)
+		\end{itemize}
+		\item odkazy (link)
+		\begin{itemize}
+			\item reprezentují vztahy mezi záznamy - analogie je asociace (ukazatele)
+		\end{itemize}
+	\end{itemize}
+	\item dotazování je dřina, vytváření dat je dřina
+	\item můžou být rychlé, pokud jsou dotazy jednoduché
+	\item zakreslují se síťovým diagramem
+	\item  obr 1, 2, 3
+\end{itemize}
+
+
+\textbf{Relační databázový model} (70. léta)
+\begin{itemize}
+	\item klady
+	\begin{itemize}
+		\item používá se
+		\item jeden typ objektu = relace
+	\end{itemize}
+	\item autor Egar F. Codd - napsal knihu:  A relational model of data for large shared data banks
+\end{itemize}
+
+\textbf{Objektový databázový model}
+\begin{itemize}
+	\item není shoda, co by měla být objektová databáze
+	\item poprvé v Lispu - balík STATICE
+	\item v současné době v Common Lispu balík Elephant
+\end{itemize}
+
+\textbf{Nerelační databáze (90. léta)}
+\begin{itemize}
+	\item MongoDB
+	\item Berkeley DB
+	\item někdy označovány jako NoSQL
+\end{itemize}
+
+%\newpage
+\renewcommand{\indexcolumns}{3}
+\printindex
+\end{document}
