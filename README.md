@@ -1,4 +1,6 @@
-prednasky-data1
-===============
+Databázové systémy 1
+====================
 
-přepis zápisků a poznámek z přednášek předmětu KMI/DATA1
+Přepis zápisků a poznámek z přednášek předmětu KMI/DATA1.
+
+Návod na kompilaci je uveden ve zdrojovém souboru přednášek.
